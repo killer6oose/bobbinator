@@ -1,0 +1,19 @@
+name: Run Docker App on GitHub Actions
+
+on: [push, pull_request]
+
+jobs:
+  run-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        run: |
+          docker build -t my-node-app .
+          docker run -d -p 3000:3000 my-node-app
+
+      - name: Show running containers
+        run: docker ps
